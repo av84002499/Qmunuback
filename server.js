@@ -25,7 +25,8 @@ dotenv.config();
 server.use((req, res, next) => {
    res.header(
     'Access-Control-Allow-Origin',
-    'https://new-sage-nine.vercel.app'
+    'https://new-sage-nine.vercel.app',
+      'http://localhost:3000'
 
   );
   res.header('Access-Control-Allow-Headers', '*');
