@@ -62,17 +62,32 @@ export default class UserController {
 }
 
 async confirmSignUp(req, res, next) {
-    const { token } = req.query;
-    try {
-        const decoded = jwt.verify(token, 'yAIb6d35fvJM4O9pXqXQNla2jBCH9kuLz');
-        const userId = decoded.userId;
-        // Assuming you have a method to update the user's status in the database to indicate that the email is confirmed
-        await this.userRepository.confirmEmail(userId);
-        res.redirect('hhttps://new-sage-nine.vercel.app/Signin'); // Redirect to success page after confirmation
-    } catch (err) {
-        next(err);
-    }
+  const { token } = req.query;
+  try {
+      const decoded = jwt.verify(token, 'yAIb6d35fvJM4O9pXqXQNla2jBCH9kuLz');
+      const userId = decoded.userId;
+      // Assuming you have a method to update the user's status in the database to indicate that the email is confirmed
+      await this.userRepository.confirmEmail(userId);
+      const { email } = await this.userRepository.getUserById(userId); // Assuming you have a method to get user details by userId
+      const confirmationLink = `https://new-sage-nine.vercel.app/userprofile?email=${encodeURIComponent(email)}`; // Construct the confirmation link with email as query parameter
+      res.redirect(confirmationLink); // Redirect to user profile page with email as query parameter
+  } catch (err) {
+      next(err);
+  }
 }
+
+// Assuming this method is called when the user clicks the confirmation link
+async handleConfirmationLink(req, res, next) {
+  const { email } = req.query;
+  try {
+      // Auto-login logic here using the provided email and possibly password
+      // Redirect the user to their profile page after successful login
+      res.redirect(`https://new-sage-nine.vercel.app/userprofile?email=${encodeURIComponent(email)}`);
+  } catch (err) {
+      next(err);
+  }
+}
+
 
 async sendConfirmationEmail(email, userId) {
     const token = jwt.sign({ userId }, 'AIb6d35fvJM4O9pXqXQNla2jBCH9kuLz', { expiresIn: '1h' }); // Create a token containing user ID
