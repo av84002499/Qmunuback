@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import { userSchema } from "./user.schema.js";
 import { ApplicationError } from "../../error-handler/applicationError.js";
 
+
 // creating model from schema.
 const UserModel = mongoose.model('User', userSchema)
 

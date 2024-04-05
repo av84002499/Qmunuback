@@ -10,24 +10,12 @@ export default class UserModel {
     this._id = id;
   }
 
-  static getAll() {
-    return users;
+  static async getAll() {
+    try {
+      const db = await getDB();
+      return await db.collection("users").find({}).toArray();
+    } catch (error) {
+      throw new ApplicationError("Error fetching users", 500);
+    }
   }
 }
-
-var users = [
-  {
-    id: 1,
-    name: 'Seller User',
-    email: 'seller@ecom.com',
-    password: 'Password1',
-    type: 'seller',
-  },
-  {
-    id: 2,
-    name: 'Customer User',
-    email: 'customer@ecom.com',
-    password: 'Password1',
-    type: 'customer',
-  },
-];
