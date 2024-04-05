@@ -68,7 +68,7 @@ async confirmSignUp(req, res, next) {
         const userId = decoded.userId;
         // Assuming you have a method to update the user's status in the database to indicate that the email is confirmed
         await this.userRepository.confirmEmail(userId);
-        res.redirect('https://new-sage-nine.vercel.app/userprofile'); // Redirect to success page after confirmation
+        res.redirect('hhttps://new-sage-nine.vercel.app/Signin'); // Redirect to success page after confirmation
     } catch (err) {
         next(err);
     }
@@ -76,7 +76,7 @@ async confirmSignUp(req, res, next) {
 
 async sendConfirmationEmail(email, userId) {
     const token = jwt.sign({ userId }, 'AIb6d35fvJM4O9pXqXQNla2jBCH9kuLz', { expiresIn: '1h' }); // Create a token containing user ID
-    const confirmationLink = `https://new-sage-nine.vercel.app/userprofile`; // Construct the confirmation link
+    const confirmationLink = `https://new-sage-nine.vercel.app/Signin`; // Construct the confirmation link
 
     // Send mail with defined transport object
     const info = await transporter.sendMail({
