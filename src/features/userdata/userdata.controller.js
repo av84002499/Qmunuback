@@ -26,7 +26,7 @@ export default class userdataController {
       if (!shopname || !address || !age || !phonenumber || !gstnumber || !aadharnumber || !userId) {
         return res.status(400).send("All fields are required");
       }
-      const userdataData = {shopname: shopname, address:address, age:parseInt(age), phonenumber:phonenumber, gstnumber:gstnumber, aadharnumber:aadharnumber, userId:userId};
+      const userdataData = {shopname: shopname, address:address, age:age , phonenumber:phonenumber, gstnumber:gstnumber, aadharnumber:aadharnumber, userId:userId};
       const createduserdata = await this.userdataRepository.manageUserData(userdataData);
       res.status(201).send(createduserdata);
     } catch (err) {
