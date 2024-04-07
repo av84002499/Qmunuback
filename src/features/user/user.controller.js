@@ -35,79 +35,6 @@ export default class UserController {
     }
   }
 
-  async signUp(req, res, next) {
-    const {
-      name,
-      email,
-      password,
-      type,
-    } = req.body;
-    try {
-      const hashedPassword = await bcrypt.hash(password, 12);
-      const user = new UserModel(
-        name,
-        email,
-        hashedPassword,
-        type
-      );
-      await this.userRepository.signUp(user);
-
-      // Send confirmation email with link
-      await this.sendConfirmationEmail(email, user._id);
-
-      res.status(201).send({ message: 'Signup successful. Please check your email for confirmation.' });
-    } catch (err) {
-      next(err);
-    }
-}
-
-async confirmSignUp(req, res, next) {
-  const { token } = req.query;
-  try {
-      const decoded = jwt.verify(token, 'yAIb6d35fvJM4O9pXqXQNla2jBCH9kuLz');
-      const userId = decoded.userId;
-      // Assuming you have a method to update the user's status in the database to indicate that the email is confirmed
-      await this.userRepository.confirmEmail(userId);
-      const { email } = await this.userRepository.getUserById(userId); // Assuming you have a method to get user details by userId
-      const confirmationLink = `https://new-sage-nine.vercel.app/userprofile?email=${encodeURIComponent(email)}`; // Construct the confirmation link with email as query parameter
-      res.redirect(confirmationLink); // Redirect to user profile page with email as query parameter
-  } catch (err) {
-      next(err);
-  }
-}
-
-// Assuming this method is called when the user clicks the confirmation link
-async handleConfirmationLink(req, res, next) {
-  const { email } = req.query;
-  try {
-      // Auto-login logic here using the provided email and possibly password
-      // Redirect the user to their profile page after successful login
-      res.redirect(`https://new-sage-nine.vercel.app/userprofile?email=${encodeURIComponent(email)}`);
-  } catch (err) {
-      next(err);
-  }
-}
-
-
-async sendConfirmationEmail(email, userId) {
-    const token = jwt.sign({ userId }, 'AIb6d35fvJM4O9pXqXQNla2jBCH9kuLz', { expiresIn: '1h' }); // Create a token containing user ID
-    const confirmationLink = `https://new-sage-nine.vercel.app/Signin`; // Construct the confirmation link
-
-    // Send mail with defined transport object
-    const info = await transporter.sendMail({
-        from: '"Maddison Foo Koch 👻" <maddison53@ethereal.email>', // Sender address
-        to: email, // Receiver address
-        subject: 'Welcome to Our Website', // Subject line
-        text: `Thank you for registering with us! Please click on the following link to complete your registration: ${confirmationLink}`, // Plain text body
-        html: `<b>Thank you for registering with us!</b> Please click <a href="${confirmationLink}">here</a> to complete your registration.`, // HTML body
-    });
-
-    console.log('Confirmation email sent to:', email);
-    console.log('Message sent: %s', info.messageId);
-}
-
-  
-  
   async signIn(req, res, next) {
     try {
       const { email, password } = req.body;
@@ -146,4 +73,67 @@ async sendConfirmationEmail(email, userId) {
       return res.status(500).send("Something went wrong");
     }
   }
+
+
+  async signUp(req, res, next) {
+    const {
+      name,
+      email,
+      password,
+      type,
+    } = req.body;
+    try {
+      const hashedPassword = await bcrypt.hash(password, 12);
+      const user = new UserModel(
+        name,
+        email,
+        hashedPassword,
+        type
+      );
+      await this.userRepository.signUp(user);
+
+      // Send confirmation email with link
+      await this.sendConfirmationEmail(email);
+
+      res.status(201).send({ message: 'Signup successful. Please check your email for confirmation.' });
+    } catch (err) {
+      next(err);
+    }
+}
+
+async confirmSignUp(req, res, next) {
+  const { token } = req.query;
+  try {
+    const decoded = jwt.verify(token, 'AIb6d35fvJM4O9pXqXQNla2jBCH9kuLz');
+    const userId = decoded.userId;
+    
+    // Assuming you have a method to update the user's status in the database to indicate that the email is confirmed
+    await this.userRepository.confirmEmail(userId);
+
+    // Assuming you have a method to authenticate the user and generate a session token
+    const authToken = await this.authenticateUser(userId);
+
+    res.redirect(`/user/profile?token=${encodeURIComponent(authToken)}`); // Redirect to user profile page with session token as query parameter
+  } catch (err) {
+    next(err);
+  }
+}
+
+async sendConfirmationEmail(email) {
+    const token = jwt.sign({ email }, 'AIb6d35fvJM4O9pXqXQNla2jBCH9kuLz', { expiresIn: '1h' }); // Create a token containing email
+    const confirmationLink = `https://new-sage-nine.vercel.app/userprofile?token=${token}`; // Construct the confirmation link
+
+    // Send mail with defined transport object
+    const info = await transporter.sendMail({
+        from: '"Your Name 👻" <your-email@example.com>', // Sender address
+        to: email, // Receiver address
+        subject: 'Confirm Signup', // Subject line
+        text: `Click the following link to confirm your signup: ${confirmationLink}`, // Plain text body
+        html: `Click the following link to confirm your signup: <a href="${confirmationLink}">${confirmationLink}</a>`, // HTML body
+    });
+
+    console.log('Confirmation email sent to:', email);
+    console.log('Message sent: %s', info.messageId);
+}
+
 }
