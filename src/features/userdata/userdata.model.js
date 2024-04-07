@@ -9,7 +9,8 @@ export default class userdatatModel {
     shopname,
     address,
     fcinumber,
-    phonenumber,
+    phonenumber1,
+    phonenumber2,
     gstnumber,
     aadharnomber,
     imageUrl,
@@ -20,7 +21,8 @@ export default class userdatatModel {
     this.shopname = shopname;
     this.address = address;
     this.fcinumber = fcinumber;
-    this.phonenumber = phonenumber;
+    this.phonenumber1 = phonenumber1;
+    this.phonenumber2 = phonenumber2;
     this.gstnumber = gstnumber;
     this.aadharnomber = aadharnomber;
     this.imageUrl = imageUrl;
