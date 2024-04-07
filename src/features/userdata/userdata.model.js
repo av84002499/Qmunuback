@@ -8,7 +8,7 @@ export default class userdatatModel {
     userId,
     shopname,
     address,
-    age,
+    fcinumber,
     phonenumber,
     gstnumber,
     aadharnomber,
@@ -19,7 +19,7 @@ export default class userdatatModel {
     this.userId = userId;
     this.shopname = shopname;
     this.address = address;
-    this.age = age;
+    this.fcinumber = fcinumber;
     this.phonenumber = phonenumber;
     this.gstnumber = gstnumber;
     this.aadharnomber = aadharnomber;

@@ -22,11 +22,11 @@ export default class userdataController {
   async manageuserdata(req, res, next) {
     try {
       // console.log(req.body);
-      const { shopname, address, age, phonenumber, gstnumber, aadharnumber, userId } = req.body;
-      if (!shopname || !address || !age || !phonenumber || !gstnumber || !aadharnumber || !userId) {
+      const { shopname, address, fcinumber, phonenumber, gstnumber, aadharnumber, userId } = req.body;
+      if (!shopname || !address || !fcinumber || !phonenumber || !gstnumber || !aadharnumber || !userId) {
         return res.status(400).send("All fields are required");
       }
-      const userdataData = {shopname: shopname, address:address, age:age , phonenumber:phonenumber, gstnumber:gstnumber, aadharnumber:aadharnumber, userId:userId};
+      const userdataData = {shopname: shopname, address:address, fcinumber:fcinumber , phonenumber:phonenumber, gstnumber:gstnumber, aadharnumber:aadharnumber, userId:userId};
       const createduserdata = await this.userdataRepository.manageUserData(userdataData);
       res.status(201).send(createduserdata);
     } catch (err) {
