@@ -20,8 +20,8 @@ userRouter.post('/signin', (req, res)=>{
     userController.signIn(req, res)
 });
 
-userRouter.post('/verify/:token', (req, res) => {
-    userController.verification(req, res);
+userRouter.post('/sendotp', (req, res) => {
+    userController.userOtpSend(req, res);
 });
 
 userRouter.put('/resetPassword', jwtAuth, (req, res, next)=>{
