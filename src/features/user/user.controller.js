@@ -1,7 +1,7 @@
 import UserModel from './user.model.js';
+import jwt from 'jsonwebtoken';
 import UserRepository from './user.repository.js';
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 import nodemailer from 'nodemailer';
 
 const transporter = nodemailer.createTransport({
@@ -76,54 +76,41 @@ export default class UserController {
   }
   
   async signIn(req, res, next) {
-    const { email, password, otp } = req.body;
-
-    if (!email || (!password && !otp)) {
-      return res.status(400).json({ error: "Please provide email and either password or OTP" });
-    }
-
     try {
-      let user;
+      const { email, password, } = req.body;
 
-      if (password) {
-        // Email and password provided, attempt login
-        user = await UserModel.findOne({ email });
+      const user = await this.userRepository.findByEmail(email);
+      if (!user) {
+        return res.status(400).send('Incorrect Credentials');
+      } 
 
-        if (!user) {
-          return res.status(400).send('Incorrect Credentials');
-        } 
+      const result = await bcrypt.compare(password, user.password);
+      if (result) {
+        const token = jwt.sign(
+          {
+            userID: user._id,
+            email: user.email,
+          },
+          'AIb6d35fvJM4O9pXqXQNla2jBCH9kuLz',
+          {
+            expiresIn: '1h',
+          }
+        );
 
-        const result = await bcrypt.compare(password, user.password);
-        if (!result) {
-          return res.status(400).send('Incorrect Credentials');
+        const response = {
+          userID: user._id,
+          name: user.name,
+          email: user.email,
+          token: token,
         }
-      } else if (otp) {
-        // OTP provided, attempt OTP verification
-        const otpVerification = await UserOTP.findOne({ email });
 
-        if (!otpVerification || otpVerification.otp !== otp) {
-          return res.status(400).json({ error: "Invalid OTP" });
-        }
-
-        user = await UserModel.findOne({ email });
-        if (!user) {
-          return res.status(400).json({ error: "User not found" });
-        }
+        return res.status(200).send(response);
       } else {
-        return res.status(400).json({ error: "Please provide password or OTP" });
+        return res.status(400).send('Incorrect Credentials');
       }
-
-      // Generate token
-      const token = jwt.sign(
-        { userID: user._id, email: user.email },
-        'AIb6d35fvJM4O9pXqXQNla2jBCH9kuLz',
-        { expiresIn: '1h' }
-      );
-
-      return res.status(200).json({ message: "User Login Successfully Done", userToken: token });
-    } catch (error) {
-      console.log(error);
-      return res.status(500).json({ error: "Something went wrong" });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).send("Something went wrong");
     }
   }
 
@@ -131,50 +118,75 @@ export default class UserController {
     const { email } = req.body;
 
     if (!email) {
-      return res.status(400).json({ error: "Please Enter Your Email" })
+        res.status(400).json({ error: "Please Enter Your Email" })
     }
+
 
     try {
-      const preuser = await UserModel.findOne({ email });
+        const presuer = await users.findOne({ email: email });
 
-      if (!preuser) {
-        return res.status(400).json({ error: "This User Does Not Exist In Our Database" });
-      }
+        if (presuer) {
+            const OTP = Math.floor(100000 + Math.random() * 900000);
 
-      const OTP = Math.floor(100000 + Math.random() * 900000);
+            const existEmail = await userotp.findOne({ email: email });
 
-      const existEmail = await UserOTP.findOne({ email });
 
-      if (existEmail) {
-        existEmail.otp = OTP;
-        await existEmail.save();
-      } else {
-        const saveOtpData = new UserOTP({
-          email,
-          otp: OTP
-        });
-        await saveOtpData.save();
-      }
+            if (existEmail) {
+                const updateData = await userotp.findByIdAndUpdate({ _id: existEmail._id }, {
+                    otp: OTP
+                }, { new: true }
+                );
+                await updateData.save();
 
-      const mailOptions = {
-        from: process.env.EMAIL,
-        to: email,
-        subject: "Sending Email For OTP Validation",
-        text: `OTP:- ${OTP}`
-      };
+                const mailOptions = {
+                    from: process.env.EMAIL,
+                    to: email,
+                    subject: "Sending Eamil For Otp Validation",
+                    text: `OTP:- ${OTP}`
+                }
 
-      transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-          console.log("error", error);
-          return res.status(400).json({ error: "Email not sent" });
+
+                tarnsporter.sendMail(mailOptions, (error, info) => {
+                    if (error) {
+                        console.log("error", error);
+                        res.status(400).json({ error: "email not send" })
+                    } else {
+                        console.log("Email sent", info.response);
+                        res.status(200).json({ message: "Email sent Successfully" })
+                    }
+                })
+
+            } else {
+
+                const saveOtpData = new userotp({
+                    email, otp: OTP
+                });
+
+                await saveOtpData.save();
+                const mailOptions = {
+                    from: process.env.EMAIL,
+                    to: email,
+                    subject: "Sending Eamil For Otp Validation",
+                    text: `OTP:- ${OTP}`
+                }
+
+                tarnsporter.sendMail(mailOptions, (error, info) => {
+                    if (error) {
+                        console.log("error", error);
+                        res.status(400).json({ error: "email not send" })
+                    } else {
+                        console.log("Email sent", info.response);
+                        res.status(200).json({ message: "Email sent Successfully" })
+                    }
+                })
+            }
         } else {
-          console.log("Email sent", info.response);
-          return res.status(200).json({ message: "Email sent Successfully" });
+            res.status(400).json({ error: "This User Not Exist In our Db" })
         }
-      });
     } catch (error) {
-      console.log(error);
-      return res.status(400).json({ error: "Invalid Details", error });
+        res.status(400).json({ error: "Invalid Details", error })
     }
-  }
+}
+
+
 }
