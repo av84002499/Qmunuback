@@ -7667,3 +7667,4 @@
  Fri Apr 05 2024 12:04:37 GMT+0530 (India Standard Time) - /api/users/signup - {"name":"ankit 3","email":"av96165607@gmail.com","password":"test3"}
  Fri Apr 05 2024 12:07:37 GMT+0530 (India Standard Time) - /api/users/signup - {"name":"ankit 3","email":"av96165607@gmail.com","password":"test3"}
  Fri Apr 05 2024 12:09:03 GMT+0530 (India Standard Time) - /api/users/signup - {"name":"ankit 3","email":"av84002499@gmail.com","password":"test3"}
+ Mon Apr 08 2024 19:51:16 GMT+0530 (India Standard Time) - /api/users/signup - {"name":"ankit verma","email":"av96165607@gmail.com","password":"Amit@123"}
