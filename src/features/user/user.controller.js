@@ -188,5 +188,50 @@ export default class UserController {
     }
 }
 
+async  signIn2(req, res, next) {
+  try {
+    const { email, otp } = req.body;
+
+    if (!otp || !email) {
+      return res.status(400).json({ error: "Please enter your OTP and email" });
+    }
+
+    const otpVerification = await userotp.findOne({ email: email });
+
+    if (otpVerification && otpVerification.otp === otp) {
+      const user = await users.findOne({ email: email });
+
+      if (user) {
+        const token = jwt.sign(
+          {
+            userID: user._id,
+            email: user.email,
+          },
+          'AIb6d35fvJM4O9pXqXQNla2jBCH9kuLz', 
+          {
+            expiresIn: '1h', // 
+          }
+        );
+
+        
+        const response = {
+          userID: user._id,
+          name: user.name, 
+          email: user.email,
+          token: token,
+        };
+
+        return res.status(200).json(response);
+      } else {
+        return res.status(400).json({ error: 'Incorrect credentials' });
+      }
+    } else {
+      return res.status(400).json({ error: 'OTP verification failed' });
+    }
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "Something went wrong" });
+  }
+}
 
 }
