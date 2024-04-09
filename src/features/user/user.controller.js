@@ -196,50 +196,50 @@ export default class UserController {
     }
 }
 
-async  signIn2(req, res, next) {
+async login(req, res, next) {
+  const { email, otp } = req.body;
+  if (!otp || !email) {
+      return res.status(400).json({ error: "Please Enter Your OTP and email" });
+  }
   try {
-    const { email, otp } = req.body;
+      const otpVerification = await userotp.findOne({ email: email });
 
-    if (!otp || !email) {
-      return res.status(400).json({ error: "Please enter your OTP and email" });
-    }
-
-    const otpVerification = await userotp.findOne({ email: email });
-
-    if (otpVerification && otpVerification.otp === otp) {
-      const user = await users.findOne({ email: email });
-
-      if (user) {
-        const token = jwt.sign(
-          {
-            userID: user._id,
-            email: user.email,
-          },
-          'AIb6d35fvJM4O9pXqXQNla2jBCH9kuLz', 
-          {
-            expiresIn: '1h', // 
-          }
-        );
-
-        
-        const response = {
-          userID: user._id,
-          name: user.name, 
-          email: user.email,
-          token: token,
-        };
-
-        return res.status(200).json(response);
-      } else {
-        return res.status(400).json({ error: 'Incorrect credentials' });
+      if (!otpVerification || otpVerification.otp !== otp) {
+          return res.status(400).json({ error: "Invalid OTP" });
       }
-    } else {
-      return res.status(400).json({ error: 'OTP verification failed' });
-    }
+
+      const user = await this.userRepository.findByEmail(email);
+      if (!user) {
+          return res.status(400).send('Incorrect Credentials');
+      }
+
+      const result = await bcrypt.compare(otp, user.otp);
+      if (result) {
+          const token = jwt.sign(
+              {
+                  userID: user._id,
+                  email: user.email,
+              },
+              'AIb6d35fvJM4O9pXqXQNla2jBCH9kuLz',
+              {
+                  expiresIn: '1h',
+              }
+          );
+
+          const response = {
+              userID: user._id,
+              name: user.name,
+              email: user.email,
+              token: token,
+          };
+
+          return res.status(200).send(response);
+      } else {
+          return res.status(400).send('Incorrect Credentials');
+      }
   } catch (err) {
-    console.error(err);
-    return res.status(500).json({ error: "Something went wrong" });
+      console.error(err);
+      return res.status(500).send("Something went wrong");
   }
 }
-
 }

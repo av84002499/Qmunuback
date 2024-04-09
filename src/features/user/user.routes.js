@@ -20,8 +20,8 @@ userRouter.post('/signin', (req, res)=>{
     userController.signIn(req, res)
 });
 
-userRouter.post('/signin2', (req, res)=>{
-    userController.signIn2(req, res)
+userRouter.post('/login', (req, res)=>{
+    userController.login(req, res)
 });
 
 userRouter.post('/sendotp', (req, res) => {
