@@ -4,6 +4,14 @@ import UserRepository from './user.repository.js';
 import bcrypt from 'bcrypt';
 import nodemailer from 'nodemailer';
 
+const tarnsporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+      user: process.env.EMAIL,
+      pass: process.env.PASSWORD
+  }
+})
+
 const transporter = nodemailer.createTransport({
   service: "Gmail",
   host: "smtp.gmail.com",
