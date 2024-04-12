@@ -1,7 +1,6 @@
-import userdataRepository from './userdata.repository.js';
+import userdataRepository from "./userdata.repository.js";
 
 export default class userdataController {
-
   constructor() {
     this.userdataRepository = new userdataRepository();
   }
@@ -16,24 +15,54 @@ export default class userdataController {
       console.log(err);
       return res.status(200).send("Something went wrong");
     }
-
   }
 
   async manageuserdata(req, res, next) {
     try {
       // console.log(req.body);
-      const { shopname, address, fcinumber, phonenumber1,phonenumber2, gstnumber, aadharnumber, userId } = req.body;
-      if (!shopname || !address || !fcinumber || !phonenumber1 || !phonenumber2 || !gstnumber || !aadharnumber || !userId) {
+      const {
+        shopname,
+        address,
+        category,
+        fcinumber,
+        phonenumber1,
+        phonenumber2,
+        gstnumber,
+        aadharnumber,
+        userId,
+      } = req.body;
+      if (
+        !shopname ||
+        !address ||
+        !category ||
+        !fcinumber ||
+        !phonenumber1 ||
+        !phonenumber2 ||
+        !gstnumber ||
+        !aadharnumber ||
+        !userId
+      ) {
         return res.status(400).send("All fields are required");
       }
-      const userdataData = {shopname: shopname, address:address, fcinumber:fcinumber , phonenumber1:phonenumber1, phonenumber2:phonenumber2, gstnumber:gstnumber, aadharnumber:aadharnumber, userId:userId};
-      const createduserdata = await this.userdataRepository.manageUserData(userdataData);
+      const userdataData = {
+        shopname: shopname,
+        address: address,
+        category: category,
+        fcinumber: fcinumber,
+        phonenumber1: phonenumber1,
+        phonenumber2: phonenumber2,
+        gstnumber: gstnumber,
+        aadharnumber: aadharnumber,
+        userId: userId,
+      };
+      const createduserdata = await this.userdataRepository.manageUserData(
+        userdataData
+      );
       res.status(201).send(createduserdata);
     } catch (err) {
       next(err);
     }
   }
-
 
   async delete(req, res, next) {
     try {
@@ -46,4 +75,3 @@ export default class userdataController {
     }
   }
 }
-

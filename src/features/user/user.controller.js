@@ -1,40 +1,21 @@
-import UserModel from './user.model.js';
-import jwt from 'jsonwebtoken';
-import UserRepository from './user.repository.js';
-import bcrypt from 'bcrypt';
-import nodemailer from 'nodemailer';
-
-const tarnsporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-      user: process.env.EMAIL,
-      pass: process.env.PASSWORD
-  }
-})
-
-const transporter = nodemailer.createTransport({
-  service: "Gmail",
-  host: "smtp.gmail.com",
-  port: 465,
-  secure: true,
-  auth: {
-    user: "av96165607@gmail.com",
-    pass: "uycn wsus scis cari",
-  },
-});
+import UserModel from "./user.model.js";
+import jwt from "jsonwebtoken";
+import UserRepository from "./user.repository.js";
+import bcrypt from "bcrypt";
+import UserOtpRepository from "./userOtp.repository.js";
 
 export default class UserController {
-
   constructor() {
     this.userRepository = new UserRepository();
+    this.userOtpRepository = new UserOtpRepository();
   }
 
   async resetPassword(req, res, next) {
     const { newPassword } = req.body;
-    const hashedPassword = await bcrypt.hash(newPassword, 12)
+    const hashedPassword = await bcrypt.hash(newPassword, 12);
     const userID = req.userID;
     try {
-      await this.userRepository.resetPassword(userID, hashedPassword)
+      await this.userRepository.resetPassword(userID, hashedPassword);
       res.status(200).send("Password is updated");
     } catch (err) {
       console.log(err);
@@ -44,202 +25,140 @@ export default class UserController {
   }
 
   async signUp(req, res, next) {
-    const {
-      name,
-      email,
-      password,
-      type,
-    } = req.body;
+    const { name, email, password, type } = req.body;
     try {
       const hashedPassword = await bcrypt.hash(password, 12);
-      const user = new UserModel(
-        name,
-        email,
-        hashedPassword,
-        type
-      );
+      const user = new UserModel(name, email, hashedPassword, type);
       await this.userRepository.signUp(user);
-  
-      // Send confirmation email
-      await this.sendConfirmationEmail(email);
-  
       res.status(201).send(user);
     } catch (err) {
       next(err);
     }
   }
-  
-  async sendConfirmationEmail(email) {
-    // Send mail with defined transport object
-    const info = await transporter.sendMail({
-      from: '"Maddison Foo Koch 👻" <maddison53@ethereal.email>', // Sender address
-      to: email, // Receiver address
-      subject: 'Welcome to Our Website', // Subject line
-      text: 'Thank you for registering with us!', // Plain text body
-      html: '<b>Thank you for registering with us!</b>', // HTML body
-    });
-  
-    console.log('Confirmation email sent to:', email);
-    console.log('Message sent: %s', info.messageId);
-  }
-  
+
   async signIn(req, res, next) {
     try {
-      const { email, password, } = req.body;
-
-      const user = await this.userRepository.findByEmail(email);
+      // 1. Find user by email.
+      const user = await this.userRepository.findByEmail(req.body.email);
       if (!user) {
-        return res.status(400).send('Incorrect Credentials');
-      } 
-
-      const result = await bcrypt.compare(password, user.password);
-      if (result) {
-        const token = jwt.sign(
-          {
-            userID: user._id,
-            email: user.email,
-          },
-          'AIb6d35fvJM4O9pXqXQNla2jBCH9kuLz',
-          {
-            expiresIn: '1h',
-          }
-        );
-
-        const response = {
-          userID: user._id,
-          name: user.name,
-          email: user.email,
-          token: token,
-        }
-
-        return res.status(200).send(response);
+        return res.status(400).send("Incorrect Credentials");
       } else {
-        return res.status(400).send('Incorrect Credentials');
+        // 2. Compare password with hashed password.
+        const result = await bcrypt.compare(req.body.password, user.password);
+        if (result) {
+          // 3. Create token.
+          const token = jwt.sign(
+            {
+              userID: user._id,
+              email: user.email,
+            },
+            "AIb6d35fvJM4O9pXqXQNla2jBCH9kuLz",
+            {
+              expiresIn: "1h",
+            }
+          );
+
+          // 4. Create response
+          const response = {
+            userID: user._id,
+            name: user.name,
+            email: user.email,
+            token: token,
+          };
+          // 5. Send response.
+          return res.status(200).send(response);
+        } else {
+          return res.status(400).send("Incorrect Credentials");
+        }
       }
     } catch (err) {
       console.log(err);
-      return res.status(500).send("Something went wrong");
+      return res.status(200).send("Something went wrong");
     }
   }
 
-  async userOtpSend(req, res) {
-    const { email } = req.body;
-
-    if (!email) {
-        res.status(400).json({ error: "Please Enter Your Email" })
-    }
-
-
+  async signInWithOTP(req, res, next) {
     try {
-        const presuer = await users.findOne({ email: email });
-
-        if (presuer) {
-            const OTP = Math.floor(100000 + Math.random() * 900000);
-
-            const existEmail = await userotp.findOne({ email: email });
-
-
-            if (existEmail) {
-                const updateData = await userotp.findByIdAndUpdate({ _id: existEmail._id }, {
-                    otp: OTP
-                }, { new: true }
-                );
-                await updateData.save();
-
-                const mailOptions = {
-                    from: process.env.EMAIL,
-                    to: email,
-                    subject: "Sending Eamil For Otp Validation",
-                    text: `OTP:- ${OTP}`
-                }
-
-
-                tarnsporter.sendMail(mailOptions, (error, info) => {
-                    if (error) {
-                        console.log("error", error);
-                        res.status(400).json({ error: "email not send" })
-                    } else {
-                        console.log("Email sent", info.response);
-                        res.status(200).json({ message: "Email sent Successfully" })
-                    }
-                })
-
-            } else {
-
-                const saveOtpData = new userotp({
-                    email, otp: OTP
-                });
-
-                await saveOtpData.save();
-                const mailOptions = {
-                    from: process.env.EMAIL,
-                    to: email,
-                    subject: "Sending Eamil For Otp Validation",
-                    text: `OTP:- ${OTP}`
-                }
-
-                tarnsporter.sendMail(mailOptions, (error, info) => {
-                    if (error) {
-                        console.log("error", error);
-                        res.status(400).json({ error: "email not send" })
-                    } else {
-                        console.log("Email sent", info.response);
-                        res.status(200).json({ message: "Email sent Successfully" })
-                    }
-                })
-            }
-        } else {
-            res.status(400).json({ error: "This User Not Exist In our Db" })
-        }
-    } catch (error) {
-        res.status(400).json({ error: "Invalid Details", error })
-    }
-}
-
-async login(req, res, next) {
-  const { email, otp } = req.body;
-  if (!otp || !email) {
-      return res.status(400).json({ error: "Please Enter Your OTP and email" });
-  }
-  try {
-      const otpVerification = await userotp.findOne({ email: email });
-
-      if (!otpVerification || otpVerification.otp !== otp) {
-          return res.status(400).json({ error: "Invalid OTP" });
-      }
-
-      const user = await this.userRepository.findByEmail(email);
+      // 1. Find user by email.
+      const user = await this.userRepository.findByEmail(req.body.email);
       if (!user) {
-          return res.status(400).send('Incorrect Credentials');
-      }
-
-      const result = await bcrypt.compare(otp, user.otp);
-      if (result) {
+        return res.status(400).send("Email not found");
+      } else {
+        // 2. Validate OTP
+        const { email, otp } = req.body;
+        const result = await this.userOtpRepository.validateOtp(email, otp);
+        if (result) {
+          // 3. Create token.
           const token = jwt.sign(
-              {
-                  userID: user._id,
-                  email: user.email,
-              },
-              'AIb6d35fvJM4O9pXqXQNla2jBCH9kuLz',
-              {
-                  expiresIn: '1h',
-              }
+            {
+              userID: user._id,
+              email: user.email,
+            },
+            "AIb6d35fvJM4O9pXqXQNla2jBCH9kuLz",
+            {
+              expiresIn: "1h",
+            }
           );
 
+          // 4. Create response
           const response = {
-              userID: user._id,
-              name: user.name,
-              email: user.email,
-              token: token,
+            userID: user._id,
+            name: user.name,
+            email: user.email,
+            token: token,
           };
-
+          // 5. Send response.
           return res.status(200).send(response);
-      } else {
-          return res.status(400).send('Incorrect Credentials');
+        } else {
+          return res.status(400).send("Invalid OTP");
+        }
       }
-  } catch (err) {
-      console.error(err);
-      return res.status(500).send("Something went wrong");
+    } catch (err) {
+      console.log(err);
+      return res.status(200).send("Something went wrong");
+    }
   }
-}
+  async resetPasswordWithOTP(req, res, next) {
+    try {
+      console.log(req.body);
+      // 1. Find user by email.
+      const user = await this.userRepository.findByEmail(req.body.email);
+      if (!user) {
+        return res.status(400).send("Email not found");
+      } else {
+        // 2. Validate OTP
+        const { email, otp, newPassword } = req.body;
+        const result = await this.userOtpRepository.validateOtp(email, otp);
+        console.log("result:", result);
+        if (result) {
+          const hashedPassword = await bcrypt.hash(newPassword, 12);
+          const userID = user._id;
+          const response = await this.userRepository.resetPassword(
+            userID,
+            hashedPassword
+          );
+          res.status(200).send({ response: "Password is updated" });
+        } else {
+          return res.status(400).send("Invalid OTP");
+        }
+      }
+    } catch (err) {
+      console.log(err);
+      next(err);
+    }
+  }
+
+  async sendOtp(req, res, next) {
+    try {
+      const { email } = req.body;
+      const response = this.userOtpRepository.sendOtp(email);
+      if (!response) {
+        return res.status(400).send("Invalid Details");
+      }
+      return res.status(200).send("OTP has been sent to your mail");
+    } catch (err) {
+      console.log(err);
+      return res.status(200).send("Something went wrong");
+    }
+  }
 }
