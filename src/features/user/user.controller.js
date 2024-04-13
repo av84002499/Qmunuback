@@ -3,6 +3,18 @@ import jwt from "jsonwebtoken";
 import UserRepository from "./user.repository.js";
 import bcrypt from "bcrypt";
 import UserOtpRepository from "./userOtp.repository.js";
+import nodemailer from "nodemailer";
+
+
+// email config
+const tarnsporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.EMAIL,
+    pass: process.env.PASSWORD,
+  },
+});
+
 
 export default class UserController {
   constructor() {
@@ -159,6 +171,21 @@ export default class UserController {
     } catch (err) {
       console.log(err);
       return res.status(200).send("Something went wrong");
+    }
+  }
+
+  async  sendSignupConfirmationEmail(email) {
+    try {
+      // Send email
+      await transporter.sendMail({
+        from: 'av96165607@gmail.com',
+        to: email,
+        subject: 'Signup Confirmation',
+        text: 'You have successfully signed up!',
+      });
+      console.log('Signup confirmation email sent successfully!');
+    } catch (error) {
+      console.error('Error sending signup confirmation email:', error);
     }
   }
 }
