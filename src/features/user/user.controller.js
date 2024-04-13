@@ -4,10 +4,6 @@ import UserRepository from "./user.repository.js";
 import bcrypt from "bcrypt";
 import UserOtpRepository from "./userOtp.repository.js";
 
-
-
-
-
 export default class UserController {
   constructor() {
     this.userRepository = new UserRepository();
@@ -165,5 +161,4 @@ export default class UserController {
       return res.status(200).send("Something went wrong");
     }
   }
-
 }

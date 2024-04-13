@@ -7736,5 +7736,78 @@
  Wed Apr 10 2024 07:49:49 GMT+0530 (India Standard Time) - /api/users/sendotp - {"email":"av96165607@gmail.com"}
  Wed Apr 10 2024 07:53:12 GMT+0530 (India Standard Time) - /api/users/sendotp - {"email":"av96165607@gmail.com"}
  Wed Apr 10 2024 07:53:55 GMT+0530 (India Standard Time) - /api/users/sendOtp - {"email":"av96165607@gmail.com"}
- Wed Apr 10 2024 11:17:21 GMT+0530 (India Standard Time) - /api/users/signup - {"email":"av84002499@gmail.com","password":"amit","name":"Amit"}
- Wed Apr 10 2024 11:20:07 GMT+0530 (India Standard Time) - /api/users/signup - {"email":"av96165607@gmail.com","password":"Amit","name":"Amit"}
+ Wed Apr 10 2024 10:54:24 GMT+0530 (India Standard Time) - / - {}
+ Wed Apr 10 2024 11:02:03 GMT+0530 (India Standard Time) - /api/users/signup - {"email":"vinay.kumar.nnk@gmail.com","password":"Tester004","name":"Vinay"}
+ Wed Apr 10 2024 11:04:47 GMT+0530 (India Standard Time) - /api/users/signup - {"email":"vinay.kumar.nnk@gmail.com","password":"Test@004","name":"Vinay"}
+ Wed Apr 10 2024 11:13:06 GMT+0530 (India Standard Time) - /api/users/signup - {"email":"vinay.kumar.nnk@gmail.com","password":"Test123","name":"Vinay"}
+ Wed Apr 10 2024 11:16:32 GMT+0530 (India Standard Time) - /api/users/signup - {"email":"vinay.kumar.nnk@gmail.com","password":"test123","name":"Vinay"}
+ Wed Apr 10 2024 11:19:56 GMT+0530 (India Standard Time) - /api/users/signup - {"email":"vinay.kumar.nnk@gmail.com","password":"test@123","name":"Vinay"}
+ Wed Apr 10 2024 11:25:34 GMT+0530 (India Standard Time) - /api/users/signup - {"email":"vinay.kumar.nnk@gmail.com","password":"Test@123","name":"Vinay"}
+ Wed Apr 10 2024 19:02:53 GMT+0530 (India Standard Time) - /api/users/sendotp - {}
+ Wed Apr 10 2024 19:05:18 GMT+0530 (India Standard Time) - /api/users/sendotp - {}
+ Wed Apr 10 2024 19:06:08 GMT+0530 (India Standard Time) - /api/users/sendotp - {}
+ Wed Apr 10 2024 19:07:37 GMT+0530 (India Standard Time) - /api/users/sendotp - {}
+ Wed Apr 10 2024 19:08:23 GMT+0530 (India Standard Time) - /api/users/sendotp - {}
+ Wed Apr 10 2024 19:09:31 GMT+0530 (India Standard Time) - /api/users/sendotp - {}
+ Wed Apr 10 2024 19:10:02 GMT+0530 (India Standard Time) - /api/users/sendotp - {}
+ Wed Apr 10 2024 19:11:32 GMT+0530 (India Standard Time) - /api/users/sendotp - {}
+ Wed Apr 10 2024 19:13:14 GMT+0530 (India Standard Time) - /api/users/sendotp - {}
+ Wed Apr 10 2024 19:14:00 GMT+0530 (India Standard Time) - /api/users/sendotp - {}
+ Wed Apr 10 2024 19:14:57 GMT+0530 (India Standard Time) - /api/users/sendotp - {}
+ Wed Apr 10 2024 19:18:19 GMT+0530 (India Standard Time) - /api/users/sendotp - {}
+ Wed Apr 10 2024 19:19:10 GMT+0530 (India Standard Time) - /api/users/sendotp - {}
+ Wed Apr 10 2024 19:44:44 GMT+0530 (India Standard Time) - /api/users/sendotp - {}
+ Wed Apr 10 2024 19:51:31 GMT+0530 (India Standard Time) - /api/users/sendotp - {"email":"vinay.kumar.nnk@gmail.com"}
+ Wed Apr 10 2024 19:52:03 GMT+0530 (India Standard Time) - /api/users/sendotp - {}
+ Wed Apr 10 2024 19:53:28 GMT+0530 (India Standard Time) - /api/users/sendotp - {"email":"vinay.kumar.nnk@gmail.com"}
+ Wed Apr 10 2024 19:55:00 GMT+0530 (India Standard Time) - /api/users/sendotp - {"email":"vinay.kumar.nnk@gmail.com"}
+ Wed Apr 10 2024 19:56:10 GMT+0530 (India Standard Time) - /api/users/sendotp - {"email":"vinay.kumar.nnk@gmail.com"}
+ Wed Apr 10 2024 19:57:02 GMT+0530 (India Standard Time) - /api/users/sendotp - {"email":"vinay.kumar.nnk@gmail.com"}
+ Wed Apr 10 2024 20:24:16 GMT+0530 (India Standard Time) - /api/users/sendotp - {"email":"vinay.kumar.nnk@gmail.com"}
+ Thu Apr 11 2024 12:22:01 GMT+0530 (India Standard Time) - /api/users/sendotp - {"email":"vinay.kumar.nnk@gmail.com"}
+ Thu Apr 11 2024 12:24:30 GMT+0530 (India Standard Time) - /api/users/sendotp - {"email":"vinay.kumar.nnk@gmail.com"}
+ Thu Apr 11 2024 12:33:47 GMT+0530 (India Standard Time) - /api/users/sendotp - {"email":"vinay.kumar.nnk@gmail.com"}
+ Thu Apr 11 2024 12:52:42 GMT+0530 (India Standard Time) - /api/users/sendotp - {"email":"vinay.kumar.nnk@gmail.com"}
+ Thu Apr 11 2024 12:53:46 GMT+0530 (India Standard Time) - /api/users/sendotp - {"email":"vinay.kumar.nnk@gmail.com"}
+ Thu Apr 11 2024 12:54:47 GMT+0530 (India Standard Time) - /api/users/sendotp - {"email":"vinay.kumar.nnk@gmail.com"}
+ Thu Apr 11 2024 12:55:45 GMT+0530 (India Standard Time) - /api/users/sendotp - {"email":"vinay.kumar.nnk@gmail.com"}
+ Thu Apr 11 2024 13:07:57 GMT+0530 (India Standard Time) - /api/users/sendotp - {"email":"vinay.kumar.nnk@gmail.com"}
+ Thu Apr 11 2024 13:19:12 GMT+0530 (India Standard Time) - /api/users/sendotp - {"email":"vinay.kumar.nnk@gmail.com"}
+ Thu Apr 11 2024 14:04:56 GMT+0530 (India Standard Time) - /api/users/sendotp - {"email":"vinay.kumar.nnk@gmail.com"}
+ Thu Apr 11 2024 14:06:43 GMT+0530 (India Standard Time) - /api/users/sendotp - {"email":"vinay.kumar.nnk@gmail.com"}
+ Thu Apr 11 2024 14:08:24 GMT+0530 (India Standard Time) - /api/users/sendotp - {"email":"vinay.kumar.nnk@gmail.com"}
+ Thu Apr 11 2024 14:10:05 GMT+0530 (India Standard Time) - /api/users/sendotp - {"email":"vinay.kumar.nnk@gmail.com"}
+ Thu Apr 11 2024 14:22:56 GMT+0530 (India Standard Time) - /api/users/sendotp - {"email":"vinay.kumar.nnk@gmail.com"}
+ Thu Apr 11 2024 15:01:15 GMT+0530 (India Standard Time) - /api/users/sendotp - {"email":"vinay.kumar.nnk@gmail.com"}
+ Thu Apr 11 2024 15:01:56 GMT+0530 (India Standard Time) - /api/users/sendotp - {"email":"vinay.kumar.nnk@gmail.com"}
+ Thu Apr 11 2024 15:02:29 GMT+0530 (India Standard Time) - /api/users/resetPasswordWithOTP - {"email":"vinay.kumar.nnk@gmail.com","otp":"995793","newPassword":"Test2@1234"}
+ Thu Apr 11 2024 15:02:59 GMT+0530 (India Standard Time) - /api/users/resetPasswordWithOTP - {"email":"vinay.kumar.nnk@gmail.com","otp":"995793","newPassword":"Test2@1234"}
+ Thu Apr 11 2024 15:05:41 GMT+0530 (India Standard Time) - /api/users/resetPasswordWithOTP - {"email":"vinay.kumar.nnk@gmail.com","otp":"995793","newPassword":"Test2@1234"}
+ Thu Apr 11 2024 15:07:26 GMT+0530 (India Standard Time) - /api/users/resetPasswordWithOTP - {"email":"vinay.kumar.nnk@gmail.com","otp":"995793","newPassword":"Test2@1234"}
+ Thu Apr 11 2024 15:08:31 GMT+0530 (India Standard Time) - /api/users/resetPasswordWithOTP - {"email":"vinay.kumar.nnk@gmail.com","otp":"995793","newPassword":"Test2@1234"}
+ Thu Apr 11 2024 15:10:26 GMT+0530 (India Standard Time) - /api/users/sendotp - {"email":"vinay.kumar.nnk@gmail.com"}
+ Thu Apr 11 2024 15:11:02 GMT+0530 (India Standard Time) - /api/users/resetPasswordWithOTP - {"email":"vinay.kumar.nnk@gmail.com","otp":"297239","newPassword":"fghjh"}
+ Thu Apr 11 2024 15:12:37 GMT+0530 (India Standard Time) - /api/users/sendotp - {"email":"vinay.kumar.nnk@gmail.com"}
+ Thu Apr 11 2024 15:13:02 GMT+0530 (India Standard Time) - /api/users/resetPasswordWithOTP - {"email":"vinay.kumar.nnk@gmail.com","otp":"634168","newPassword":"Test@123"}
+ Thu Apr 11 2024 15:14:36 GMT+0530 (India Standard Time) - /api/users/sendotp - {"email":"vinay.kumar.nnk@gmail.com"}
+ Thu Apr 11 2024 15:14:53 GMT+0530 (India Standard Time) - /api/users/resetPasswordWithOTP - {"email":"vinay.kumar.nnk@gmail.com","otp":"133468","newPassword":"Test@123"}
+ Thu Apr 11 2024 15:18:46 GMT+0530 (India Standard Time) - /api/users/sendotp - {"email":"vinay.kumar.nnk@gmail.com"}
+ Thu Apr 11 2024 15:19:31 GMT+0530 (India Standard Time) - /api/users/sendotp - {"email":"vinay.kumar.nnk@gmail.com"}
+ Thu Apr 11 2024 15:20:07 GMT+0530 (India Standard Time) - /api/users/resetPasswordWithOTP - {"email":"vinay.kumar.nnk@gmail.com","otp":"712120","newPassword":"Test@1234"}
+ Thu Apr 11 2024 15:20:40 GMT+0530 (India Standard Time) - /api/users/sendotp - {"email":"vinay.kumar.nnk@gmail.com"}
+ Thu Apr 11 2024 15:21:13 GMT+0530 (India Standard Time) - /api/users/resetPasswordWithOTP - {"email":"vinay.kumar.nnk@gmail.com","otp":"693985","newPassword":"Test@1234"}
+ Fri Apr 12 2024 15:24:13 GMT+0530 (India Standard Time) - /api/users/sendotp - {"email":"vinay.kumar.nnk@gmail.com"}
+ Fri Apr 12 2024 15:27:28 GMT+0530 (India Standard Time) - /api/users/signup - {"email":"vinay.kumar.nnk@gmail.com","password":"test","name":"Vinay"}
+ Fri Apr 12 2024 15:30:06 GMT+0530 (India Standard Time) - /api/users/sendotp - {"email":"vinay.kumar.nnk@gmail.com"}
+ Fri Apr 12 2024 15:47:32 GMT+0530 (India Standard Time) - /api/userdata/getuserdata - {"userId":"66190588b20c427ed538b77a"}
+ Fri Apr 12 2024 15:48:04 GMT+0530 (India Standard Time) - /api/userdata/ - {"shopname":"test","address":"test add","category":"Cat1","fcinumber":"test fci","phonenumber1":"11111111111","phonenumber2":"2222222222","gstnumber":"abc1234","aadharnumber":"123456123456","userId":"66190588b20c427ed538b77a"}
+ Fri Apr 12 2024 15:48:04 GMT+0530 (India Standard Time) - /api/userdata/getuserdata - {"userId":"66190588b20c427ed538b77a"}
+ Fri Apr 12 2024 15:49:00 GMT+0530 (India Standard Time) - /api/userdata/getuserdata - {"userId":"66190588b20c427ed538b77a"}
+ Fri Apr 12 2024 15:49:38 GMT+0530 (India Standard Time) - /api/userdata/ - {"shopname":"test","address":"test add","category":"Cat2","fcinumber":"test fci","phonenumber1":"11111111111","phonenumber2":"2222222222","gstnumber":"abc1234","aadharnumber":"123456123456","userId":"66190588b20c427ed538b77a"}
+ Fri Apr 12 2024 15:49:38 GMT+0530 (India Standard Time) - /api/userdata/getuserdata - {"userId":"66190588b20c427ed538b77a"}
+ Fri Apr 12 2024 15:50:28 GMT+0530 (India Standard Time) - /api/userdata/ - {"shopname":"test","address":"test add","category":"Cat1","fcinumber":"test fci","phonenumber1":"11111111111","phonenumber2":"2222222222","gstnumber":"abc1234","aadharnumber":"123456123456","userId":"66190588b20c427ed538b77a"}
+ Fri Apr 12 2024 15:50:29 GMT+0530 (India Standard Time) - /api/userdata/getuserdata - {"userId":"66190588b20c427ed538b77a"}
+ Fri Apr 12 2024 15:51:16 GMT+0530 (India Standard Time) - /api/userdata/ - {"shopname":"test","address":"test add","category":"Cat2","fcinumber":"test fci","phonenumber1":"11111111111","phonenumber2":"2222222222","gstnumber":"abc1234","aadharnumber":"123456123456","userId":"66190588b20c427ed538b77a"}
+ Fri Apr 12 2024 15:51:16 GMT+0530 (India Standard Time) - /api/userdata/getuserdata - {"userId":"66190588b20c427ed538b77a"}
+ Fri Apr 12 2024 15:51:31 GMT+0530 (India Standard Time) - /api/userdata/ - {"shopname":"test","address":"test add","category":"Cat1","fcinumber":"test fci","phonenumber1":"11111111111","phonenumber2":"2222222222","gstnumber":"abc1234","aadharnumber":"123456123456","userId":"66190588b20c427ed538b77a"}
+ Fri Apr 12 2024 15:51:31 GMT+0530 (India Standard Time) - /api/userdata/getuserdata - {"userId":"66190588b20c427ed538b77a"}
