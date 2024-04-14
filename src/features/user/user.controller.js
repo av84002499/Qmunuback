@@ -3,6 +3,16 @@ import jwt from "jsonwebtoken";
 import UserRepository from "./user.repository.js";
 import bcrypt from "bcrypt";
 import UserOtpRepository from "./userOtp.repository.js";
+import nodemailer from "nodemailer";
+
+// email config
+const tarnsporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.EMAIL,
+    pass: process.env.PASSWORD,
+  },
+});
 
 export default class UserController {
   constructor() {
@@ -23,18 +33,35 @@ export default class UserController {
       next(err);
     }
   }
-
+  
   async signUp(req, res, next) {
     const { name, email, password, type } = req.body;
     try {
+      // Check if the email already exists in the database
+      const existingUser = await this.userRepository.findByEmail(email);
+      if (existingUser) {
+        return res.status(400).send("Email already exists");
+      }
+  
       const hashedPassword = await bcrypt.hash(password, 12);
       const user = new UserModel(name, email, hashedPassword, type);
       await this.userRepository.signUp(user);
+  
+      // Send email notification
+      await tarnsporter.sendMail({
+        from: '"Your Name" <your-email@example.com>',
+        to: email,
+        subject: "Registration Successful",
+        text: "You have successfully registered.",
+
+      });
+  
       res.status(201).send(user);
     } catch (err) {
       next(err);
     }
   }
+  
 
   async signIn(req, res, next) {
     try {
