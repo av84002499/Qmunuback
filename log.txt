@@ -7828,3 +7828,11 @@
  Sun Apr 14 2024 07:51:24 GMT+0530 (India Standard Time) - /api/users/signup - {"name":"ankit verma","email":"av96165607@gmail.com","password":"Amit@123"}
  Sun Apr 14 2024 07:52:06 GMT+0530 (India Standard Time) - /api/users/signup - {"name":"ankit verma","email":"av96165607@gmail.com","password":"Amit@123"}
  Sun Apr 14 2024 07:53:21 GMT+0530 (India Standard Time) - /api/users/signup - {"name":"ankit verma","email":"av96165607@gmail.com","password":"Amit@123"}
+ Mon Apr 15 2024 10:59:57 GMT+0530 (India Standard Time) - /api/users/signup - {"name":"ankit verma","email":"av96165607@gmail.com","password":"Amit@123"}
+ Fri Apr 19 2024 12:14:33 GMT+0530 (India Standard Time) - /api/products/ - {}
+ Fri Apr 19 2024 12:16:57 GMT+0530 (India Standard Time) - /api/products/ - {}
+ Fri Apr 19 2024 12:19:08 GMT+0530 (India Standard Time) - /api/products/ - {}
+ Fri Apr 19 2024 12:19:12 GMT+0530 (India Standard Time) - /api/products/ - {}
+ Fri Apr 19 2024 12:19:35 GMT+0530 (India Standard Time) - /api/products/ - {}
+ Fri Apr 19 2024 12:19:51 GMT+0530 (India Standard Time) - /api/products/ - {}
+ Fri Apr 19 2024 12:20:13 GMT+0530 (India Standard Time) - /api/products/ - {}

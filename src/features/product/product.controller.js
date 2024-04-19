@@ -34,7 +34,7 @@ export default class ProductController {
       console.log(req.body);
 
       const { name, price, ownerId, sizes } = req.body;
-      const newProduct = new ProductModel(name, parseFloat(price), ownerId, sizes);
+      const newProduct = new ProductModel(name, parseFloat(price), ownerId, sizes, req.file.filename);
       const createdProduct = await this.productRepository.add(newProduct);
       res.status(201).send(createdProduct);
     } catch (err) {
