@@ -40,8 +40,6 @@ export default class userdataController {
         !phonenumber2 ||
         !gstnumber ||
         !aadharnumber ||
-        !req.file.filename||
-
         !userId
       ) {
         return res.status(400).send("All fields are required");
