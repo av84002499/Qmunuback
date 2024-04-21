@@ -28,7 +28,6 @@ export default class userdataController {
         phonenumber1,
         phonenumber2,
         gstnumber,
-        aadharnumber,
         userId,
       } = req.body;
       if (
@@ -39,7 +38,6 @@ export default class userdataController {
         !phonenumber1 ||
         !phonenumber2 ||
         !gstnumber ||
-        !aadharnumber ||
         !userId
       ) {
         return res.status(400).send("All fields are required");
