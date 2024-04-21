@@ -13,6 +13,7 @@ export default class userdatatModel {
     phonenumber1,
     phonenumber2,
     gstnumber,
+    aadharnomber,
     imageUrl,
     id
   ) {
@@ -25,6 +26,7 @@ export default class userdatatModel {
     this.phonenumber1 = phonenumber1;
     this.phonenumber2 = phonenumber2;
     this.gstnumber = gstnumber;
+    this.aadharnomber = aadharnomber;
     this.imageUrl = imageUrl;
     this.ratings = [];
   }

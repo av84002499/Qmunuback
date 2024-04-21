@@ -17,7 +17,7 @@ export default class userdataController {
     }
   }
 
-  async manageuserdata(req, res, next) {
+  async manageuserdata(req, res) {
     try {
       // console.log(req.body);
       const {
@@ -28,6 +28,7 @@ export default class userdataController {
         phonenumber1,
         phonenumber2,
         gstnumber,
+        aadharnumber,
         userId,
       } = req.body;
       if (
@@ -38,6 +39,7 @@ export default class userdataController {
         !phonenumber1 ||
         !phonenumber2 ||
         !gstnumber ||
+        !aadharnumber ||
         !userId
       ) {
         return res.status(400).send("All fields are required");
@@ -57,9 +59,7 @@ export default class userdataController {
         userdataData
       );
       res.status(201).send(createduserdata);
-    } catch (err) {
-      next(err);
-    }
+    } catch (err){}
   }
 
   async delete(req, res, next) {
