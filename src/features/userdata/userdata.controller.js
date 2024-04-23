@@ -7,19 +7,17 @@ export default class userdataController {
 
   async getUserDatas(req, res) {
     try {
-      // console.log(req.body);
       const { userId } = req.body;
       const userdatas = await this.userdataRepository.getOne(userId);
       res.status(200).send(userdatas);
     } catch (err) {
       console.log(err);
-      return res.status(200).send("Something went wrong");
+      return res.status(500).send("Something went wrong");
     }
   }
 
   async manageuserdata(req, res) {
     try {
-      // console.log(req.body);
       const {
         shopname,
         address,
@@ -31,35 +29,31 @@ export default class userdataController {
         aadharnumber,
         userId,
       } = req.body;
-      if (
-        !shopname ||
-        !address ||
-        !category ||
-        !fcinumber ||
-        !phonenumber1 ||
-        !phonenumber2 ||
-        !gstnumber ||
-        !aadharnumber ||
-        !userId
-      ) {
-        return res.status(400).send("All fields are required");
+
+      if (!userId) {
+        return res.status(400).send("userId is required");
       }
+
       const userdataData = {
-        shopname: shopname,
-        address: address,
-        category: category,
-        fcinumber: fcinumber,
-        phonenumber1: phonenumber1,
-        phonenumber2: phonenumber2,
-        gstnumber: gstnumber,
-        aadharnumber: aadharnumber,
+        shopname: shopname || "",
+        address: address || "",
+        category: category || "",
+        fcinumber: fcinumber || "",
+        phonenumber1: phonenumber1 || "",
+        phonenumber2: phonenumber2 || "",
+        gstnumber: gstnumber || "",
+        aadharnumber: aadharnumber || "",
         userId: userId,
       };
+
       const createduserdata = await this.userdataRepository.manageUserData(
         userdataData
       );
       res.status(201).send(createduserdata);
-    } catch (err){}
+    } catch (err) {
+      console.log(err);
+      res.status(500).send("Something went wrong");
+    }
   }
 
   async delete(req, res, next) {
