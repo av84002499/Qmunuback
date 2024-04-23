@@ -25,7 +25,7 @@ dotenv.config();
 server.use((req, res, next) => {
    res.header(
     'Access-Control-Allow-Origin',
-    'https://quickcatalog.in, https://www.quickcatalog.in'
+    'https://quickcatalog.in'
 
   );
   res.header('Access-Control-Allow-Headers', '*');
