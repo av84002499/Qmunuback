@@ -140,6 +140,7 @@ async delete(productId) {
       throw err;
     }
   }
+  
   async update(productId, updatedData) {
     try {
       const updatedProduct = await ProductModel.findByIdAndUpdate(productId, updatedData, { new: true });

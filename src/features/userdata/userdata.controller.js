@@ -28,6 +28,7 @@ export default class userdataController {
         gstnumber,
         aadharnumber,
         userId,
+        
       } = req.body;
 
       if (!userId) {
@@ -44,6 +45,7 @@ export default class userdataController {
         gstnumber: gstnumber || "",
         aadharnumber: aadharnumber || "",
         userId: userId,
+        
       };
 
       const createduserdata = await this.userdataRepository.manageUserData(

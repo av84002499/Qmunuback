@@ -48,6 +48,10 @@ productRouter.delete('/:id', (req, res, next)=>{
   productController.delete(req, res, next)
 });
 
+productRouter.put('/:id', (req, res, next)=>{
+  productController.put(req, res, next)
+});
+
 
 
 export default productRouter;

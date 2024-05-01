@@ -28,7 +28,6 @@ export default class userdatatModel {
     this.gstnumber = gstnumber;
     this.aadharnomber = aadharnomber;
     this.imageUrl = imageUrl;
-    this.ratings = [];
   }
 
   static add(userdatat) {

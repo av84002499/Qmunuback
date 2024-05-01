@@ -97,7 +97,7 @@ export default class ProductController {
 
   async put(req, res, next) {
     try {
-      const updatedData = req.body;
+      const updatedData = req.params.id;
       const productId = updatedData.id;
       const updatedProduct = await this.productRepository.update(productId, updatedData);
       res.status(200).send(updatedProduct);
@@ -106,7 +106,6 @@ export default class ProductController {
       res.status(500).send("Something went wrong");
     }
   }
-
 
 
 
