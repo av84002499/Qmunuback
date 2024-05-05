@@ -97,15 +97,18 @@ export default class ProductController {
 
   async put(req, res, next) {
     try {
-      const updatedData = req.params.id;
-      const productId = updatedData.id;
-      const updatedProduct = await this.productRepository.update(productId, updatedData);
-      res.status(200).send(updatedProduct);
+        const productId = req.params.id; 
+        const updatedData = req.body; 
+         const updatedProduct = await this.productRepository.update(productId, updatedData);
+        if (!updatedProduct) {
+            return res.status(404).send("Product not found");
+        }
+       res.status(200).send(updatedProduct);
     } catch (err) {
-      console.log(err);
-      res.status(500).send("Something went wrong");
+        console.error(err); 
+        res.status(500).send("Internal Server Error");
     }
-  }
+}
 
 
 
