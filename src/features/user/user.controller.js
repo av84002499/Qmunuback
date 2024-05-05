@@ -95,7 +95,7 @@ export default class UserController {
           // 5. Send response.
           return res.status(200).send(response);
         } else {
-          return res.status(400).send("Incorrect Credentials");
+          return res.status(400).send("");
         }
       }
     } catch (err) {
