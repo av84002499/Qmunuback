@@ -25,7 +25,7 @@ dotenv.config();
 server.use((req, res, next) => {
    res.header(
     'Access-Control-Allow-Origin',
-      'https://www.quickcatalog.in'
+      'https://new-d4b7.vercel.app'
   );
   res.header('Access-Control-Allow-Headers', '*');
   res.header('Access-Control-Allow-Methods', '*');
