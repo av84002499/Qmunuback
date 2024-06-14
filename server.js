@@ -4,7 +4,6 @@ import dotenv from "dotenv";
 import menuRouter from './src/features/menu/menu.routes.js'
 import productRouter from './src/features/product/product.routes.js';
 import userRouter from './src/features/user/user.routes.js';
-import uploadRouter from './src/features/upload/upload.routes.js';
 import jwtAuth from './src/middlewares/jwt.middleware.js';
 import apiDocs from './swagger.json' assert { type: 'json' };
 import loggerMiddleware from './src/middlewares/logger.middleware.js';
@@ -15,6 +14,7 @@ import mongoose from 'mongoose';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import imagurlRouter from './src/features/imagurl/imagurl.routes.js'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -25,7 +25,7 @@ dotenv.config();
 server.use((req, res, next) => {
    res.header(
     'Access-Control-Allow-Origin',
-      'https://new-d4b7.vercel.app'
+      'http://localhost:3000'
   );
   res.header('Access-Control-Allow-Headers', '*');
   res.header('Access-Control-Allow-Methods', '*');
@@ -42,7 +42,8 @@ server.use('/api/userdata', jwtAuth, userdataRouter); // Corrected middleware us
 server.use('/api/products', jwtAuth, productRouter);
 server.use('/api/users', userRouter);
 server.use('/api/menu', menuRouter);
-server.use('/api/upload', uploadRouter);
+server.use('/api/imagurl',jwtAuth, imagurlRouter);
+
 
 server.get('/', (req, res) => {
   res.send('Quick Catalog APIs');

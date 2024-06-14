@@ -7,4 +7,5 @@ export const productSchema = new mongoose.Schema({
     sizes: [String], // Assuming sizes are stored as strings, adjust as necessary
     inStock: Number,
     imageUrl: { type: String, },
+    
 });

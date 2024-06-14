@@ -62,7 +62,6 @@ export default class UserController {
     }
   }
   
-
   async signIn(req, res, next) {
     try {
       // 1. Find user by email.
@@ -95,7 +94,7 @@ export default class UserController {
           // 5. Send response.
           return res.status(200).send(response);
         } else {
-          return res.status(400).send("");
+          return res.status(400).send("Incorrect Credentials");
         }
       }
     } catch (err) {
